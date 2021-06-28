@@ -70,7 +70,7 @@ def create_predict_data(path,img_list,out,predicted_masks_array):
     
     for i,img_name in tqdm(enumerate(img_list)):
 
-        img = Image.open(os.path.join(path,'train/'+img_name)).convert('L')
+        img = Image.open(os.path.join(path,'Images/'+img_name)).convert('L')
 
         mask = (predicted_masks_array[i,:,:]*255).astype(np.uint8)
 
