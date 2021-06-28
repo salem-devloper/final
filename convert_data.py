@@ -94,7 +94,7 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='./data/Qata_COV')
+    parser.add_argument('--path',type=str,default='../input/datasetlung/2 MASTER/Memoire/06-24-2021/content/dataset')
     parser.add_argument('--gpu', type=str, default = '0')
     # arguments for training
     parser.add_argument('--img_size_lung', type = int , default = 512)
@@ -148,7 +148,7 @@ def main():
         ToTensor()
     ])
 
-    img_path = os.path.join(args.path,'train')
+    img_path = os.path.join(args.path,'Images')
     img_list = os.listdir(img_path)#[:1000]
 
     dataset = LungDataset(root_dir = args.path,split=img_list,transforms=eval_transforms,img_size=args.img_size_lung)
