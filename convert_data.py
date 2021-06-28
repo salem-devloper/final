@@ -164,15 +164,15 @@ def main():
     #cuda.select_device(0)
 
     # set model
-    qata_model = UNet(n_channels=1, n_classes=1).to(device)
+    #qata_model = UNet(n_channels=1, n_classes=1).to(device)
 
-    checkpoint = torch.load(args.load_qata_model)
-    qata_model.load_state_dict(checkpoint['model_state_dict'])
+    #checkpoint = torch.load(args.load_qata_model)
+    #qata_model.load_state_dict(checkpoint['model_state_dict'])
 
-    dataset = LungDataset(root_dir = args.path,split=img_list,transforms=eval_transforms,img_size=args.img_size_qata)
-    dataloader = DataLoader(dataset = dataset , batch_size=16,shuffle=False)
+    #dataset = LungDataset(root_dir = args.path,split=img_list,transforms=eval_transforms,img_size=args.img_size_qata)
+    #dataloader = DataLoader(dataset = dataset , batch_size=16,shuffle=False)
 
-    masks_qata = generate_masks(qata_model,dataloader,device,args.img_size_lung,args.img_size_qata)
+    #masks_qata = generate_masks(qata_model,dataloader,device,args.img_size_lung,args.img_size_qata)
 
     #print(masks_lung.shape)
     #print(masks_qata.shape)
