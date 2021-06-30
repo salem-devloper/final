@@ -201,7 +201,7 @@ def get_args():
     # arguments for training
     parser.add_argument('--img_size', type = int , default = 512,)
     parser.add_argument('--epochs', type=int , default = 100 )
-    parser.add_argument('--batch_size', type=int, default=20)
+    parser.add_argument('--batch_size', type=int, default=2)
     parser.add_argument('--lr', type=float, default=0.01)
 
     parser.add_argument('--load_model', type=str, default=None, help='.pth file path to load model')
