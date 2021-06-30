@@ -155,9 +155,9 @@ def gabor_features(img, kernels, d1, d2):
 
     for kernel in kernels:
 
-        #filtred_img_complex = scipy.ndimage.convolve(img,kernel)
+        filtred_img_complex = scipy.ndimage.convolve(img,kernel)
 
-        filtred_img_complex = cv2.filter2D(cv2.UMat(img),-1,kernel)
+        #filtred_img_complex = cv2.filter2D(img,-1,kernel)
 
         filtred_img = np.abs(filtred_img_complex)
 
@@ -221,12 +221,16 @@ if __name__ == '__main__':
 
     #img = np.random.randint(0,256,(224,224),dtype=np.uint8)
 
+    #img= np.zeros((224,224),dtype=np.uint8)
+
     #plt.imshow(img)
 
     #kernels = gabor_kernels(5,8,39,39)
 
-    #features = gabor_features(img,kernels,32,32)
+    #features = process_image(img,kernels)
 
     #print(features)
-
+    
+    #print(np.sum(np.isnan(features)))
+    #print(features.shape[0])
     #plt.show()
