@@ -35,7 +35,7 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
     history = {'train':{'epoch':[], 'loss' : [] , 'acc':[]},
                'val'  :{'epoch':[], 'loss' : [] , 'acc':[]}}
 
-    best_acc = 0.92
+    best_acc = 0.93
     best_loss = 10000000000
     start = time.time()
     for epoch in range(epochs):
@@ -59,8 +59,7 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
             running_correct = 0
             dataset_size = 0
             """Iterate over data"""
-            data_iter = tqdm(enumerate(dataloader[phase]), total=len(dataloader[phase]))
-            for batch_idx, sample in data_iter:
+            for batch_idx, sample in enumerate(dataloader[phase]):
                 imgs , true_masks = sample['image'],sample['mask']
                 imgs = imgs.to(device=device, dtype=torch.float32)
                 # mask_type = torch.float32 if net.n_classes == 1 else torch.long
@@ -93,9 +92,6 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
                     # print(f'Batch {batch_idx}/{len(dataloader[phase])} Loss {loss.item()} Acc {running_acc}')
                     # print(f'Batch {batch_idx+1}/{len(dataloader[phase])} Loss {loss.item()}')
 
-                data_iter.set_description(
-                    f' {phase.capitalize()} - Loss: {running_loss/dataset_size:1.4f} Acc: {running_acc:1.4f}')
-
 
             """ statistics """
             epoch_loss = running_loss / dataset_size
@@ -124,13 +120,6 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
 
         time_elapsed = time.time() - start
         min, sec = time_elapsed//60 , time_elapsed % 60
-
-
-        # import json
-
-        # with open('history.json', 'w') as fp:
-        #     json.dump(history, fp)
-
         print("Total Training time {:.0f}min {:.0f}sec".format(min,sec))
     draw_plots(history)
 
@@ -213,7 +202,7 @@ def get_args():
     parser.add_argument('--img_size', type = int , default = 512,)
     parser.add_argument('--epochs', type=int , default = 100 )
     parser.add_argument('--batch_size', type=int, default=20)
-    parser.add_argument('--lr', type=float, default=0.1)
+    parser.add_argument('--lr', type=float, default=0.01)
 
     parser.add_argument('--load_model', type=str, default=None, help='.pth file path to load model')
     return parser.parse_args()
