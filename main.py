@@ -73,7 +73,7 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
                 """forward"""
                 with torch.set_grad_enabled(phase == 'train'):
                     masks_pred = net(imgs)
-                    loss = criterion(masks_pred, true_masks.view(1, -1))
+                    loss = criterion(masks_pred, true_masks.view(-1, 1))
                     running_loss += loss.item()
 
                     """backward + optimize only if in training phase"""
