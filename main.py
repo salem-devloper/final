@@ -73,7 +73,7 @@ def train_and_validate(net,criterion, optimizer, scheduler, dataloader,device,ep
                 """forward"""
                 with torch.set_grad_enabled(phase == 'train'):
                     masks_pred = net(imgs)
-                    loss = criterion(masks_pred, true_masks.view(-1, 1))
+                    loss = criterion(masks_pred, true_masks)
                     running_loss += loss.item()
 
                     """backward + optimize only if in training phase"""
@@ -212,7 +212,7 @@ def get_args():
     # arguments for training
     parser.add_argument('--img_size', type = int , default = 512,)
     parser.add_argument('--epochs', type=int , default = 100 )
-    parser.add_argument('--batch_size', type=int, default=4)
+    parser.add_argument('--batch_size', type=int, default=8)
     parser.add_argument('--lr', type=float, default=0.01)
 
     parser.add_argument('--load_model', type=str, default=None, help='.pth file path to load model')
