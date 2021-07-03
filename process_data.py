@@ -5,6 +5,7 @@ import scipy
 import numpy as np
 import pandas as pd
 from PIL import Image
+from sklearn import preprocessing
 
 #from skimage.filters import gabor_kernel
 import math
@@ -89,9 +90,9 @@ def process_image(img,kernels):
     oao_zipf_inv = math.log10(nbr_freqs[-1])
 
     # all zipf and zipf inverse features
-
-    zipf_features = np.array([pente, constante, entropy_1, entropy_2, oao_zipf, air_zipf, oao_zipf_inv, zi_pente],dtype=np.float32)
-
+    # add normalize
+    zipf_features = preprocessing.normalize(np.array([pente, constante, entropy_1, entropy_2, oao_zipf, air_zipf, oao_zipf_inv, zi_pente],dtype=np.float32))
+    #d = preprocessing.normalize(zipf_features)
     # calculate gabor features
     
     gabor_features_data = gabor_features(img,kernels,32,32)
@@ -168,8 +169,8 @@ def gabor_features(img, kernels, d1, d2):
         flat_fi = (flat_fi-np.mean(flat_fi))/np.std(flat_fi)
 
         features.append(flat_fi)
-
-
+    # add normalize
+    features = preprocessing.normalize(features)
     return np.concatenate(features)
 
 def get_args():
@@ -191,7 +192,7 @@ def main():
 
     images_path = os.path.join(args.path,'croped_lung')
 
-    df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=10)
+    df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
 
     kernels = gabor_kernels(5,8,39,39)
 
