@@ -24,7 +24,7 @@ class LungDataset(Dataset): # inherit from torch.utils.data.Dataset
         self.split = split # train / val / test
         self.transforms = transforms
 
-        self.image_path = self.root_dir + '/Images/'
+        self.image_path = self.root_dir + '/COVID/'
 
         self.img_size = img_size
 
