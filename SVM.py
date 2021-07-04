@@ -6,6 +6,7 @@ import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import matplotlib.pyplot as plt # for data visualization
 import seaborn as sns # for statistical data visualization
+import argparse
 #matplotlib inline
 
 # Input data files are available in the "../input/" directory.
@@ -17,6 +18,14 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
         print(os.path.join(dirname, filename))
 
 # Any results you write to the current directory are saved as output.
+def get_args():
+
+    parser = argparse.ArgumentParser(description = "U-Net for Lung Segmentation" ,
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    # set your environment
+    parser.add_argument('--path', type=str, default = '../input/')
+    return parser.parse_args()
 
 data = '/kaggle/input/predicting-a-pulsar-star/pulsar_stars.csv'
 
