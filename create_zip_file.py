@@ -1,6 +1,7 @@
 
 from tqdm import tqdm
 import os
+import argparse
 
 def get_all_file_paths(directory):
 
@@ -34,9 +35,27 @@ def create_zipfile(directory):
 
     # writing files to a zipfile
     print("writing files to a zipfile")
-    with ZipFile('myzipfile.zip','w') as zip:
+    with ZipFile('data.zip','w') as zip:
         # writing each file one by one
         for file in tqdm(file_paths):
             zip.write(file)
 
     print('All files zipped successfully!')
+
+def get_args():
+
+    parser = argparse.ArgumentParser(description = "U-net Lung Segmentation" ,
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    # set your environment
+    parser.add_argument('--path',type=str,default='./dataset')
+    
+    return parser.parse_args()
+
+def main():
+    args = get_args()
+    create_zipfile(args.path)
+
+if __name__ == '__main__':
+
+    main()
