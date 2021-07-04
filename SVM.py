@@ -23,6 +23,7 @@ data = '/kaggle/input/predicting-a-pulsar-star/pulsar_stars.csv'
 df = pd.read_csv(data)
 
 # Declare feature vector and target variable
+
 X = df.drop(['target_class'], axis=1)
 
 y = df['target_class']
