@@ -61,7 +61,7 @@ def generate_masks(net,dataloader,device,useful_size,current_size):
 
 
 
-def create_predict_data(path,img_list,out,predicted_masks_array):
+def create_predict_data(path,img_list,out,predicted_masks_array,folder_image_name):
 
 
     croped_out = os.path.join(out,'croped_lung')
@@ -70,7 +70,7 @@ def create_predict_data(path,img_list,out,predicted_masks_array):
     
     for i,img_name in tqdm(enumerate(img_list)):
 
-        img = Image.open(os.path.join(path,'Images/'+img_name)).convert('L')
+        img = Image.open(os.path.join(path,folder_image_name,img_name)).convert('L')
 
         mask = (predicted_masks_array[i,:,:]*255).astype(np.uint8)
 
@@ -102,7 +102,7 @@ def get_args():
 
     parser.add_argument('--load_lung_model', type=str, default='best_checkpoint.pt', help='.pth file path to load model')
     parser.add_argument('--load_qata_model', type=str, default='best_checkpoint.pt', help='.pth file path to load model')
-
+    parser.add_argument('--folder_image_name', type=str, default='Images')
     parser.add_argument('--out', type=str, default='./dataset')
     return parser.parse_args()
 
@@ -148,7 +148,7 @@ def main():
         ToTensor()
     ])
 
-    img_path = os.path.join(args.path,'Images')
+    img_path = os.path.join(args.path,args.folder_image_name)
     img_list = os.listdir(img_path)#[:1000]
 
     dataset = LungDataset(root_dir = args.path,split=img_list,transforms=eval_transforms,img_size=args.img_size_lung)
@@ -193,7 +193,7 @@ def main():
 
         #print(masks.shape)
 
-        create_predict_data(args.path,img_list[a:b],args.out,masks)
+        create_predict_data(args.path,img_list[a:b],args.out,masks,args.folder_image_name)
 
         del joined_masks, masks
         gc.collect()
