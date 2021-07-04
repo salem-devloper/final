@@ -4,10 +4,10 @@ import pandas as pd
 import argparse
 
 
-def create_annotation(path, a):
+def create_annotation(path, a, folder_image_name):
 
    
-    images_path = os.path.join(path,'Images')
+    images_path = os.path.join(path,folder_image_name)
     #masks_path = os.path.join(path,'Ground-truths')
     
     images = os.listdir(images_path)
@@ -38,6 +38,7 @@ def get_args():
     # set your environment
     parser.add_argument('--path',type=str,default='./data/Qata_COV')
     parser.add_argument('--a', type=str, default = '0')
+    parser.add_argument('--folder_image_name', type=str, default='Images')
     # arguments for training
     #parser.add_argument('--img_size', type = int , default = 224)
 
@@ -54,7 +55,7 @@ def main():
         print("path created")
         os.mkdir(args.out)
     
-    df = create_annotation(args.path, args.a)
+    df = create_annotation(args.path, args.a, args.folder_image_name)
 
     df.to_csv(os.path.join(args.out,'target.csv'),index=False)
 

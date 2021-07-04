@@ -98,9 +98,10 @@ def process_image(img,kernels):
     #d = preprocessing.normalize(zipf_features)
     # calculate gabor features
     
-    gabor_features_data = gabor_features(img,kernels,32,32)
+    #gabor_features_data = gabor_features(img,kernels,32,32)
 
-    return np.concatenate([zipf_features, gabor_features_data])
+    #return np.concatenate([zipf_features, gabor_features_data])
+    return np.concatenate(zipf_features)
 
 
     
@@ -195,7 +196,8 @@ def main():
 
     images_path = os.path.join(args.path,'croped_lung')
 
-    df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
+    #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
+    df = pd.read_csv(os.path.join(args.path,'target.csv'))
 
     kernels = gabor_kernels(5,8,39,39)
 
