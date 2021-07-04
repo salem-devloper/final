@@ -94,7 +94,7 @@ def process_image(img,kernels):
     zipf_features = np.array([pente, constante, entropy_1, entropy_2, oao_zipf, air_zipf, oao_zipf_inv, zi_pente],dtype=np.float32)
     
     # add normalize
-    zipf_features = preprocessing.normalize(zipf_features)
+    #zipf_features = preprocessing.normalize(zipf_features)
     #d = preprocessing.normalize(zipf_features)
     # calculate gabor features
     
