@@ -101,7 +101,7 @@ def process_image(img,kernels):
     #gabor_features_data = gabor_features(img,kernels,32,32)
 
     #return np.concatenate([zipf_features, gabor_features_data])
-    return np.concatenate(zipf_features)
+    return zipf_features
 
 
     
@@ -183,11 +183,11 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='./data/Qata_COV')
+    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-05-2021/normal croped clahe/dataset')
     # arguments for training
     parser.add_argument('--img_size', type = int , default = 224)
 
-    parser.add_argument('--out', type=str, default='./dataset')
+    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-05-2021/normal croped clahe')
     return parser.parse_args()
 
 def main():
