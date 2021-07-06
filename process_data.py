@@ -200,7 +200,7 @@ def main():
     images_path = os.path.join(args.path,'croped_lung')
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
-    df = pd.read_csv(os.path.join(args.path,'target.csv'))
+    df = pd.read_csv(os.path.join(args.path,'target.csv'), nrows=1000)
 
     kernels = gabor_kernels(5,8,39,39)
 
