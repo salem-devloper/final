@@ -185,7 +185,7 @@ def get_args():
     # set your environment
     parser.add_argument('--path',type=str,default='../input')
     # arguments for training
-    parser.add_argument('--img_size', type = int , default = 224)
+    parser.add_argument('--nrows', type = int , default = 1000)
 
     parser.add_argument('--out', type=str, default='./zipf csv')
     return parser.parse_args()
@@ -200,7 +200,7 @@ def main():
     images_path = os.path.join(args.path,'croped_lung')
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
-    df = pd.read_csv(os.path.join(args.path,'target.csv'), nrows=1000)
+    df = pd.read_csv(os.path.join(args.path,'target.csv'), nrows = args.nrows)
 
     kernels = gabor_kernels(5,8,39,39)
 
