@@ -19,7 +19,7 @@ def get_all_file_paths(directory):
     # returning all file paths
     return file_paths
 
-def create_zipfile(directory):
+def create_zipfile(directory, name_file_save):
     # path to folder which needs to be zipped
     #path = '/Users/Salem Rezzag/Desktop/New folder'
     #directory = './images rename'
@@ -35,7 +35,7 @@ def create_zipfile(directory):
 
     # writing files to a zipfile
     print("writing files to a zipfile")
-    with ZipFile('data.zip','w') as zip:
+    with ZipFile(name_file_save,'w') as zip:
         # writing each file one by one
         for file in tqdm(file_paths):
             zip.write(file)
@@ -49,12 +49,13 @@ def get_args():
 
     # set your environment
     parser.add_argument('--path',type=str,default='./dataset')
+    parser.add_argument('--name_file_save', type=str, default='data.zip')
     
     return parser.parse_args()
 
 def main():
     args = get_args()
-    create_zipfile(args.path)
+    create_zipfile(args.path, args.name_file_save)
 
 if __name__ == '__main__':
 
