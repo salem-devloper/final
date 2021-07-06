@@ -111,7 +111,7 @@ def main():
 
     args = get_args()
 
-    if ~ os.path.exists(args.out):
+    if not os.path.exists(args.out):
         print("path created")
         os.mkdir(args.out)
         #os.mkdir(os.path.join(args.out,'Images'))
