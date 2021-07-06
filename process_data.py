@@ -183,16 +183,19 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-05-2021/normal croped clahe/dataset')
+    parser.add_argument('--path',type=str,default='../input')
     # arguments for training
     parser.add_argument('--img_size', type = int , default = 224)
 
-    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-05-2021/normal croped clahe')
+    parser.add_argument('--out', type=str, default='./zipf csv')
     return parser.parse_args()
 
 def main():
 
     args = get_args()
+
+    if not os.path.exists(args.out):
+        os.mkdir(args.out)
 
     images_path = os.path.join(args.path,'croped_lung')
 
