@@ -183,11 +183,11 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='../input')
+    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/croped pneumonia/dataset')
     # arguments for training
-    parser.add_argument('--nrows', type = int , default = 1000)
+    parser.add_argument('--nrows', type = int , default = 3616)
 
-    parser.add_argument('--out', type=str, default='./zipf csv')
+    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/croped pneumonia/zipf csv')
     return parser.parse_args()
 
 def main():
@@ -200,7 +200,7 @@ def main():
     images_path = os.path.join(args.path,'croped_lung')
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
-    df = pd.read_csv(os.path.join(args.path,'target.csv'), nrows = args.nrows)
+    df = pd.read_csv(os.path.join(args.path,'target.csv'))
 
     kernels = gabor_kernels(5,8,39,39)
 
