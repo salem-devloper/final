@@ -26,7 +26,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_concat_non_normaliz.csv'))
+    df = pd.read_csv(os.path.join(args.path,'data_concat.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -137,6 +137,13 @@ def main():
     # compute and print accuracy score
     print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 
+    from sklearn.model_selection import cross_val_score
+    from sklearn import svm
+
+    clf = svm.SVC(kernel='linear', C=1, random_state=42)
+    scores = cross_val_score(clf, X, y, cv=5)
+    print('Model accuracy score with linear kernel and C=1.0 and cross_val_score : {}', scores)
+    
     #Compare the train-set and test-set accuracy
     #Now, I will compare the train-set and test-set accuracy to check for overfitting.
 
