@@ -183,11 +183,11 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/croped pneumonia/dataset')
+    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/normal_croped/dataset')
     # arguments for training
     parser.add_argument('--nrows', type = int , default = 3616)
 
-    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/croped pneumonia/zipf csv')
+    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/normal_croped/zipf csv')
     return parser.parse_args()
 
 def main():

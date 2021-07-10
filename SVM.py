@@ -7,15 +7,8 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import matplotlib.pyplot as plt # for data visualization
 import seaborn as sns # for statistical data visualization
 import argparse
-#matplotlib inline
-
-# Input data files are available in the "../input/" directory.
-# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
-
 import os
-for dirname, _, filenames in os.walk('/kaggle/input'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
+#matplotlib inline
 
 # Any results you write to the current directory are saved as output.
 def get_args():
@@ -24,132 +17,140 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path', type=str, default = '../input/')
+    parser.add_argument('--path', type=str, default = 'E:/2 MASTER/Memoire/07-06-2021 (croped)')
     return parser.parse_args()
 
-data = '/kaggle/input/predicting-a-pulsar-star/pulsar_stars.csv'
+def main():
 
-df = pd.read_csv(data)
+#data = '/kaggle/input/predicting-a-pulsar-star/pulsar_stars.csv'
 
-# Declare feature vector and target variable
+    args = get_args()
 
-X = df.drop(['target_class'], axis=1)
+    df = pd.read_csv(os.path.join(args.path,'data_concat_non_normaliz.csv'))
 
-y = df['target_class']
+    # Declare feature vector and target variable
 
-# split X and y into training and testing sets
+    X = df.drop(['index', 'img', 'target'], axis=1)
 
-from sklearn.model_selection import train_test_split
+    y = df['target']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+    # split X and y into training and testing sets
 
+    from sklearn.model_selection import train_test_split
 
-cols = X_train.columns
-
-from sklearn.preprocessing import StandardScaler
-
-scaler = StandardScaler()
-
-X_train = scaler.fit_transform(X_train)
-
-X_test = scaler.transform(X_test)
-
-X_train = pd.DataFrame(X_train, columns=[cols])
-
-X_test = pd.DataFrame(X_test, columns=[cols])
-
-#Run SVM with default hyperparameters 
-#Table of Contents
-#Default hyperparameter means C=1.0, kernel=rbf and gamma=auto among other parameters.
-
-# import SVC classifier
-from sklearn.svm import SVC
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 
-# import metrics to compute accuracy
-from sklearn.metrics import accuracy_score
+    cols = X_train.columns
+
+    from sklearn.preprocessing import StandardScaler
+
+    scaler = StandardScaler()
+
+    X_train = scaler.fit_transform(X_train)
+
+    X_test = scaler.transform(X_test)
+
+    X_train = pd.DataFrame(X_train, columns=[cols])
+
+    X_test = pd.DataFrame(X_test, columns=[cols])
+
+    #Run SVM with default hyperparameters 
+    #Table of Contents
+    #Default hyperparameter means C=1.0, kernel=rbf and gamma=auto among other parameters.
+
+    # import SVC classifier
+    from sklearn.svm import SVC
 
 
-# instantiate classifier with default hyperparameters
-svc=SVC() 
+    # import metrics to compute accuracy
+    from sklearn.metrics import accuracy_score
 
 
-# fit classifier to training set
-svc.fit(X_train,y_train)
+    # instantiate classifier with default hyperparameters
+    svc=SVC() 
 
 
-# make predictions on test set
-y_pred=svc.predict(X_test)
+    # fit classifier to training set
+    svc.fit(X_train,y_train)
 
 
-# compute and print accuracy score
-print('Model accuracy score with default hyperparameters: {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
-
-#Run SVM with rbf kernel and C=100.0
-#We have seen that there are outliers in our dataset. 
-#So, we should increase the value of C as higher C means fewer outliers. 
-#So, I will run SVM with kernel=rbf and C=100.0.
-
-# instantiate classifier with rbf kernel and C=100
-svc=SVC(C=100.0) 
+    # make predictions on test set
+    y_pred=svc.predict(X_test)
 
 
-# fit classifier to training set
-svc.fit(X_train,y_train)
+    # compute and print accuracy score
+    print('Model accuracy score with default hyperparameters: {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
+
+    #Run SVM with rbf kernel and C=100.0
+    #We have seen that there are outliers in our dataset. 
+    #So, we should increase the value of C as higher C means fewer outliers. 
+    #So, I will run SVM with kernel=rbf and C=100.0.
+
+    # instantiate classifier with rbf kernel and C=100
+    svc=SVC(C=100.0) 
 
 
-# make predictions on test set
-y_pred=svc.predict(X_test)
+    # fit classifier to training set
+    svc.fit(X_train,y_train)
 
 
-# compute and print accuracy score
-print('Model accuracy score with rbf kernel and C=100.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
-
-#Run SVM with rbf kernel and C=1000.0
-
-# instantiate classifier with rbf kernel and C=1000
-svc=SVC(C=1000.0) 
+    # make predictions on test set
+    y_pred=svc.predict(X_test)
 
 
-# fit classifier to training set
-svc.fit(X_train,y_train)
+    # compute and print accuracy score
+    print('Model accuracy score with rbf kernel and C=100.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
+
+    #Run SVM with rbf kernel and C=1000.0
+
+    # instantiate classifier with rbf kernel and C=1000
+    svc=SVC(C=1000.0) 
 
 
-# make predictions on test set
-y_pred=svc.predict(X_test)
+    # fit classifier to training set
+    svc.fit(X_train,y_train)
 
 
-# compute and print accuracy score
-print('Model accuracy score with rbf kernel and C=1000.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
-
-#13. Run SVM with linear kernel 
-
-#Run SVM with linear kernel and C=1.0
-# instantiate classifier with linear kernel and C=1.0
-linear_svc=SVC(kernel='linear', C=1.0) 
+    # make predictions on test set
+    y_pred=svc.predict(X_test)
 
 
-# fit classifier to training set
-linear_svc.fit(X_train,y_train)
+    # compute and print accuracy score
+    print('Model accuracy score with rbf kernel and C=1000.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
+
+    #13. Run SVM with linear kernel 
+
+    #Run SVM with linear kernel and C=1.0
+    # instantiate classifier with linear kernel and C=1.0
+    linear_svc=SVC(kernel='linear', C=1.0) 
 
 
-# make predictions on test set
-y_pred_test=linear_svc.predict(X_test)
+    # fit classifier to training set
+    linear_svc.fit(X_train,y_train)
 
 
-# compute and print accuracy score
-print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
+    # make predictions on test set
+    y_pred_test=linear_svc.predict(X_test)
 
-#Compare the train-set and test-set accuracy
-#Now, I will compare the train-set and test-set accuracy to check for overfitting.
 
-y_pred_train = linear_svc.predict(X_train)
+    # compute and print accuracy score
+    print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 
-print('Training-set accuracy score: {0:0.4f}'. format(accuracy_score(y_train, y_pred_train)))
+    #Compare the train-set and test-set accuracy
+    #Now, I will compare the train-set and test-set accuracy to check for overfitting.
 
-#Check for overfitting and underfitting
-# print the scores on training and test set
+    y_pred_train = linear_svc.predict(X_train)
 
-print('Training set score: {:.4f}'.format(linear_svc.score(X_train, y_train)))
+    print('Training-set accuracy score: {0:0.4f}'. format(accuracy_score(y_train, y_pred_train)))
 
-print('Test set score: {:.4f}'.format(linear_svc.score(X_test, y_test)))
+    #Check for overfitting and underfitting
+    # print the scores on training and test set
+
+    print('Training set score: {:.4f}'.format(linear_svc.score(X_train, y_train)))
+
+    print('Test set score: {:.4f}'.format(linear_svc.score(X_test, y_test)))
+
+if __name__ == '__main__':
+
+    main()
