@@ -17,7 +17,7 @@ from scipy.stats import rankdata
 import matplotlib.pyplot as plt
 import cv2
 
-def process_image(img,kernels):
+def process_image(img):
 
     # decode image
 
@@ -92,8 +92,10 @@ def process_image(img,kernels):
     # all zipf and zipf inverse features
     
     zipf_features = np.array([pente, constante, entropy_1, entropy_2, oao_zipf, air_zipf, oao_zipf_inv, zi_pente],dtype=np.float32)
-    
+    #print(zipf_features)
     # add normalize
+    #scaler = preprocessing.MinMaxScaler()
+    #zipf_features = scaler.fit_transform(zipf_features.reshape(1, -1))
     #zipf_features = preprocessing.normalize(zipf_features)
     #d = preprocessing.normalize(zipf_features)
     # calculate gabor features
@@ -174,7 +176,7 @@ def gabor_features(img, kernels, d1, d2):
 
         features.append(flat_fi)
     # add normalize
-    features = preprocessing.normalize(features)
+    #features = preprocessing.normalize(features)
     return np.concatenate(features)
 
 def get_args():
@@ -183,11 +185,11 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/normal_croped/dataset')
+    parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/covid_croped/dataset')
     # arguments for training
-    parser.add_argument('--nrows', type = int , default = 3616)
+    #parser.add_argument('--nrows', type = int , default = 3616)
 
-    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/normal_croped/zipf csv')
+    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/covid_croped/dataset/zipf csv')
     return parser.parse_args()
 
 def main():
@@ -197,7 +199,7 @@ def main():
     if not os.path.exists(args.out):
         os.mkdir(args.out)
 
-    images_path = os.path.join(args.path,'croped_lung')
+    images_path = os.path.join(args.path,'test')
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
     df = pd.read_csv(os.path.join(args.path,'target.csv'))
