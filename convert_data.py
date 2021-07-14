@@ -151,7 +151,7 @@ def main():
     img_path = os.path.join(args.path,args.folder_image_name)
     img_list = os.listdir(img_path)#[:1000]
 
-    dataset = LungDataset(root_dir = args.path,split=img_list,transforms=eval_transforms,img_size=args.img_size_lung)
+    dataset = LungDataset(root_dir = args.path,folder_image_name=args.folder_image_name,split=img_list,transforms=eval_transforms,img_size=args.img_size_lung)
     dataloader = DataLoader(dataset = dataset , batch_size=16,shuffle=False)
     
     #create_original_data(args.path,args.out)

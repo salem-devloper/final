@@ -6,6 +6,7 @@ import os
 import random
 import cv2
 from PIL import Image
+from LungSegmentationDataset import LungSegDataset
 
 from skimage import io
 
@@ -13,7 +14,7 @@ from skimage import io
 # torch.utils.data.Dataset is an abstract class representing a dataset
 class LungDataset(Dataset): # inherit from torch.utils.data.Dataset
     "Lung sengmentation dataset."
-    def __init__(self,root_dir = os.path.join(os.getcwd(),"data/Lung Segmentation"),folder_name='',split=None, transforms = None , shuffle = True,img_size = None):
+    def __init__(self,root_dir = os.path.join(os.getcwd(),"data/Lung Segmentation"),folder_name=None,split=None, transforms = None , shuffle = True,img_size = None):
         """
         Args:
         :param root_dir (str):
@@ -24,7 +25,7 @@ class LungDataset(Dataset): # inherit from torch.utils.data.Dataset
         self.split = split # train / val / test
         self.transforms = transforms
         # COVID PNEUMONIA Normal
-        self.image_path = self.root_dir + '/PNEUMONIA/'
+        self.image_path = self.root_dir + '/' + folder_name + '/'
 
         self.img_size = img_size
 
