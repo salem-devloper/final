@@ -119,7 +119,7 @@ os.remove(os.path.join(args.out,'data_normalization.csv'))
 
 # loaded model SVM to classification image
 loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
-result = loaded_model.predict([features_image_test])
+result = loaded_model.predict(data)
 if result == [0]:    
     print("image input is NORMAL")
 if result == [1]:    

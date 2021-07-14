@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_concat.csv')) #data_concat_non_normaliz
+    df = pd.read_csv(os.path.join(args.path,'data_concat_non_normaliz.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -142,18 +142,18 @@ def main():
 
     #Run SVM with linear kernel and C=1.0
     # instantiate classifier with linear kernel and C=1.0
-    linear_svc=SVC(kernel='linear', C=1.0) 
+    #linear_svc=SVC(kernel='linear', C=1.0) 
 
 
     # fit classifier to training set
-    linear_svc.fit(X_train,y_train)
+    #linear_svc.fit(X_train,y_train)
 
 
     # make predictions on test set
-    y_pred_test=linear_svc.predict(X_test)
+    #y_pred_test=linear_svc.predict(X_test)
 
     # compute and print accuracy score
-    print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
+    #print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 
     from sklearn.model_selection import cross_val_score
     from sklearn import svm
@@ -168,12 +168,12 @@ def main():
 
     from sklearn.model_selection import cross_val_score, cross_val_predict
 
-    Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
-    C_V = cross_val_predict(linear_svc, X_train, y_train, cv=10)
+    #Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
+    #C_V = cross_val_predict(linear_svc, X_train, y_train, cv=10)
 
-    print(C_V)    
+    #print(C_V)    
 
-    print('Cross validated : {:.4f}'.format(Cross_validated))
+    #print('Cross validated : {:.4f}'.format(Cross_validated))
 
     #clf = svm.SVC(kernel='linear', C=1, random_state=42)
     #scores = cross_val_score(clf, X, y, cv=5)
@@ -182,21 +182,21 @@ def main():
     #Compare the train-set and test-set accuracy
     #Now, I will compare the train-set and test-set accuracy to check for overfitting.
 
-    y_pred_train = linear_svc.predict(X_train)
+    y_pred_train = svc_rbf_c1000.predict(X_train)
 
     print('Training-set accuracy score: {0:0.4f}'. format(accuracy_score(y_train, y_pred_train)))
 
     #Check for overfitting and underfitting
     # print the scores on training and test set
 
-    print('Training set score: {:.4f}'.format(linear_svc.score(X_train, y_train)))
+    print('Training set score: {:.4f}'.format(svc_rbf_c1000.score(X_train, y_train)))
 
-    print('Test set score: {:.4f}'.format(linear_svc.score(X_test, y_test)))
+    print('Test set score: {:.4f}'.format(svc_rbf_c1000.score(X_test, y_test)))
 
     import pickle
     # save the model to disk
-    filename = os.path.join(args.out, 'linear_svc_model_normaliz.sav')
-    pickle.dump(linear_svc, open(filename, 'wb'))
+    filename = os.path.join(args.out, 'svc_rbf_c1000_model_not_normaliz.sav')
+    pickle.dump(svc_rbf_c1000, open(filename, 'wb'))
     print('save model')
     # load the model from disk
     loaded_model = pickle.load(open(filename, 'rb'))
