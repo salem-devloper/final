@@ -14,7 +14,7 @@ from skimage import io
 # torch.utils.data.Dataset is an abstract class representing a dataset
 class LungDataset(Dataset): # inherit from torch.utils.data.Dataset
     "Lung sengmentation dataset."
-    def __init__(self,root_dir = os.path.join(os.getcwd(),"data/Lung Segmentation"),folder_name=None,split=None, transforms = None , shuffle = True,img_size = None):
+    def __init__(self,root_dir = os.path.join(os.getcwd(),"data/Lung Segmentation"),folder_name='',split=None, transforms = None , shuffle = True,img_size = None):
         """
         Args:
         :param root_dir (str):
