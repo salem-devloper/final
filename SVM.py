@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_concat_non_normaliz.csv')) #data_concat_non_normaliz
+    df = pd.read_csv(os.path.join(args.path,'data_concat.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -74,26 +74,26 @@ def main():
 
 
     # instantiate classifier with default hyperparameters
-    svc=SVC() 
+    svc_hyperpar=SVC() 
 
 
     # fit classifier to training set
-    svc.fit(X_train,y_train)
+    svc_hyperpar.fit(X_train,y_train)
 
 
     # make predictions on test set
-    y_pred=svc.predict(X_test)
+    y_pred=svc_hyperpar.predict(X_test)
 
     
     print("test pridect")
-    print(svc.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
-    print(svc.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
-    print(svc.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
+    print(svc_hyperpar.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
+    print(svc_hyperpar.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
+    print(svc_hyperpar.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
 
     print("test pridect")
-    print(svc.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
-    print(svc.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
-    print(svc.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
+    print(svc_hyperpar.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
+    print(svc_hyperpar.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
+    print(svc_hyperpar.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
 
 
     # compute and print accuracy score
@@ -105,15 +105,15 @@ def main():
     #So, I will run SVM with kernel=rbf and C=100.0.
 
     # instantiate classifier with rbf kernel and C=100
-    svc=SVC(C=100.0) 
+    svc_rbf_c100=SVC(C=100.0) 
 
 
     # fit classifier to training set
-    svc.fit(X_train,y_train)
+    svc_rbf_c100.fit(X_train,y_train)
 
 
     # make predictions on test set
-    y_pred=svc.predict(X_test)
+    y_pred=svc_rbf_c100.predict(X_test)
 
 
     # compute and print accuracy score
@@ -122,19 +122,19 @@ def main():
     #Run SVM with rbf kernel and C=1000.0
 
     # instantiate classifier with rbf kernel and C=1000
-    svc=SVC(C=1000.0) 
+    svc_rbf_c1000 = SVC(C=1000.0) 
 
 
     # fit classifier to training set
-    svc.fit(X_train,y_train)
+    svc_rbf_c1000.fit(X_train,y_train)
 
 
     # make predictions on test set
-    y_pred=svc.predict(X_test)
+    y_pred=svc_rbf_c1000.predict(X_test)
     print("test pridect")
-    print(svc.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
-    print(svc.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
-    print(svc.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
+    print(svc_rbf_c1000.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
+    print(svc_rbf_c1000.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
+    print(svc_rbf_c1000.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
     # compute and print accuracy score
     print('Model accuracy score with rbf kernel and C=1000.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
 
@@ -195,7 +195,7 @@ def main():
 
     import pickle
     # save the model to disk
-    filename = os.path.join(args.out, 'linear_svc_model.sav')
+    filename = os.path.join(args.out, 'linear_svc_model_normaliz.sav')
     pickle.dump(linear_svc, open(filename, 'wb'))
     print('save model')
     # load the model from disk
