@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_concat_non_normaliz.csv')) #data_concat_non_normaliz
+    df = pd.read_csv(os.path.join(args.path,'data_normaliz2.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -84,7 +84,11 @@ def main():
     # make predictions on test set
     y_pred=svc_hyperpar.predict(X_test)
 
-    
+    print("test pridect normaliz 2")
+    print(svc_hyperpar.predict([[-2.33E-06,	2.35E-05,	6.17E-07,	1.75E-06,	1.03E-05,	1,	0,	-2.20E-07]]))
+    print(svc_hyperpar.predict([[-2.02E-05,	0.000168,	7.43E-06,	1.57E-05,	7.83E-05,	0.999999982,	0,	-7.29E-06]]))
+    print(svc_hyperpar.predict([[-1.91E-05,	0.000161029,	6.05E-06,	1.70E-05,	8.54E-05,	0.999999983,	0,	-7.39E-06]]))
+
     print("test pridect")
     print(svc_hyperpar.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
     print(svc_hyperpar.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
@@ -142,18 +146,18 @@ def main():
 
     #Run SVM with linear kernel and C=1.0
     # instantiate classifier with linear kernel and C=1.0
-    #linear_svc=SVC(kernel='linear', C=1.0) 
+    linear_svc=SVC(kernel='linear', C=1.0) 
 
 
     # fit classifier to training set
-    #linear_svc.fit(X_train,y_train)
+    linear_svc.fit(X_train,y_train)
 
 
     # make predictions on test set
-    #y_pred_test=linear_svc.predict(X_test)
+    y_pred_test=linear_svc.predict(X_test)
 
     # compute and print accuracy score
-    #print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
+    print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 
     from sklearn.model_selection import cross_val_score
     from sklearn import svm
@@ -168,12 +172,12 @@ def main():
 
     from sklearn.model_selection import cross_val_score, cross_val_predict
 
-    #Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
+    Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
     #C_V = cross_val_predict(linear_svc, X_train, y_train, cv=10)
 
     #print(C_V)    
 
-    #print('Cross validated : {:.4f}'.format(Cross_validated))
+    print('Cross validated : {:.4f}'.format(Cross_validated))
 
     #clf = svm.SVC(kernel='linear', C=1, random_state=42)
     #scores = cross_val_score(clf, X, y, cv=5)

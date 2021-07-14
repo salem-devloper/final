@@ -54,7 +54,7 @@ with open(args.data_not_normaliz, 'r') as read_obj:
 # Process image (get features)
 data = []
 img_list = os.listdir(args.path_img)
-img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[0]))).convert('L'))
+img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[2]))).convert('L'))
 features = process_image(img)        
 data.append(features)
 feature = pd.DataFrame(data)
@@ -119,7 +119,7 @@ os.remove(os.path.join(args.out,'data_normalization.csv'))
 
 # loaded model SVM to classification image
 loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
-result = loaded_model.predict(data)
+result = loaded_model.predict([features_image_test])
 if result == [0]:    
     print("image input is NORMAL")
 if result == [1]:    
