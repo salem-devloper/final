@@ -92,6 +92,8 @@ def process_image(img):
     # all zipf and zipf inverse features
     
     zipf_features = np.array([pente, constante, entropy_1, entropy_2, oao_zipf, air_zipf, oao_zipf_inv, zi_pente],dtype=np.float32)
+    
+    #zipf_features = np.around(zipf_features,15)
     #print(zipf_features)
     # add normalize
     #scaler = preprocessing.MinMaxScaler()

@@ -27,6 +27,14 @@ def get_args():
 
 args = get_args()
 
+# remove file csv
+if os.path.exists(os.path.join(args.out,'data.csv')):
+    os.remove(os.path.join(args.out,'data.csv'))
+if os.path.exists(os.path.join(args.out,'data_add.csv')):
+    os.remove(os.path.join(args.out,'data_add.csv'))
+if os.path.exists(os.path.join(args.out,'data_normalization.csv')):
+    os.remove(os.path.join(args.out,'data_normalization.csv'))
+
 # create path out save
 if not os.path.exists(args.out):
     os.mkdir(args.out)
@@ -54,7 +62,7 @@ with open(args.data_not_normaliz, 'r') as read_obj:
 # Process image (get features)
 data = []
 img_list = os.listdir(args.path_img)
-img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[2]))).convert('L'))
+img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[0]))).convert('L'))
 features = process_image(img)        
 data.append(features)
 feature = pd.DataFrame(data)
@@ -112,10 +120,15 @@ with open(os.path.join(args.out,'data_normalization.csv'), 'r') as read_obj:
 
         i += 1
 
-# remove file csv
-os.remove(os.path.join(args.out,'data.csv'))
-os.remove(os.path.join(args.out,'data_add.csv'))
-os.remove(os.path.join(args.out,'data_normalization.csv'))
+#x = np.array([features_image_test])
+#x = x.astype(np.float)
+#print(x)
+#features_image_test = np.around(x,9)
+#features_image_test = np.set_printoptions(formatter={'float': lambda x: "{0:0.9f}".format([x])})
+#print("features_image_test : ",features_image_test)
+#scaled_df = pd.DataFrame(features_image_test)
+#final_df = pd.concat([scaled_df],axis=1)
+#final_df.to_csv(os.path.join(args.out,'features_image_test.csv'),index=False)
 
 # loaded model SVM to classification image
 loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
