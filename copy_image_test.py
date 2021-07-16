@@ -15,7 +15,6 @@ def get_args():
     parser.add_argument('--path_img',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/test/pneumonia') 
     parser.add_argument('--path_img_test', type=str, default='image_test')
     # arguments for training
-    parser.add_argument('--path_folder', type = str , default = 'E:/2 MASTER/Memoire/07-06-2021 (croped)/linear_svc_model.sav')
     parser.add_argument('--out', type=str, default='./data')
 
     return parser.parse_args()
@@ -24,6 +23,7 @@ def main():
     args = get_args
 
     # copy image file 
+    os.mkdir(args.out)
     os.mkdir(os.path.join(args.out,'folder_img'))
     list_img = os.listdir(args.path_img)
     for img_name in list_img:
