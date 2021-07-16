@@ -38,9 +38,11 @@ def main():
     for i in list1:
         if (i == 'png' or i == 'jpeg' or i == 'jpg'):
             format_img = i
-        else:
-            print("this format Not supported")
-            sys.exit()
+            find = True
+    
+    if not find:
+        print("this format Not supported")
+        sys.exit()
 
     for img_name in list_img_test:
         copyfile(os.path.join(args.path_img_test,os.path.basename(img_name)),
