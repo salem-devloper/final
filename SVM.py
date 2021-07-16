@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_normaliz2.csv')) #data_concat_non_normaliz
+    df = pd.read_csv(os.path.join(args.path,'data_concat.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -199,7 +199,7 @@ def main():
 
     import pickle
     # save the model to disk
-    filename = os.path.join(args.out, 'svc_rbf_c1000_model_not_normaliz.sav')
+    filename = os.path.join(args.out, 'linear_svc_model_normaliz.sav')
     pickle.dump(svc_rbf_c1000, open(filename, 'wb'))
     print('save model')
     # load the model from disk
