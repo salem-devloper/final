@@ -46,7 +46,7 @@ def main():
 
     for img_name in list_img_test:
         copyfile(os.path.join(args.path_img_test,os.path.basename(img_name)),
-            os.path.join(args.out,'folder_img','image_test.',format_img))
+            os.path.join(args.out,'folder_img','image_test.' + format_img))
 
 if __name__ == '__main__':
     
