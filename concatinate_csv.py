@@ -23,18 +23,18 @@ args = get_args()
 Data = []
 #Data = pd.DataFrame(columns=['index','img','target'])
 # open file in read mode
-with open(args.path_pneumonia_csv + '/data.csv', 'r') as read_obj:
+#with open(args.path_pneumonia_csv + '/data.csv', 'r') as read_obj:
     # pass the file object to reader() to get the reader object
-    csv_reader = reader(read_obj)
-    header = next(csv_reader)
+#    csv_reader = reader(read_obj)
+#    header = next(csv_reader)
     # Iterate over each row in the csv using reader object
-    if header != None:
-        for row in tqdm(csv_reader):
+#    if header != None:
+#        for row in tqdm(csv_reader):
         # row variable is a list that represents a row in csv
         #Data.append([row], ignore_index=True)
         #Data['img'] = row['img']
         #Data['target'] = row['target']
-            Data.append(row)
+#            Data.append(row)
         #print(row)
 
 with open(args.path_covid_csv + '/data.csv', 'r') as read_obj:
@@ -70,4 +70,4 @@ feature_df = feature_df.drop(0, axis=1)
 feature_df = feature_df.reset_index()
 feature_df.columns = ['index', 'img', 'target', '0', '1', '2', '3', '4', '5', '6', '7']
 
-feature_df.to_csv(os.path.join(args.out,'data_concat_non_normaliz.csv'),index=False)
+feature_df.to_csv(os.path.join(args.out,'data_concat_non_normaliz_2_class.csv'),index=False)

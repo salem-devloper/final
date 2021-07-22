@@ -9,7 +9,7 @@ import os
 def Normalization(path_data, path_target, out):
 
     #df = pd.read_csv(os.path.join(path_target,'target.csv'))
-    housing = pd.read_csv(os.path.join(path_data,"data_concat_non_normaliz.csv"))
+    housing = pd.read_csv(os.path.join(path_data,"data_concat_non_normaliz_2_class.csv"))
     df = housing.drop(['0','1','2','3','4','5','6','7'], axis=1)
     x_array = housing.drop(['index','img','target'], axis=1)
     
@@ -25,7 +25,7 @@ def Normalization(path_data, path_target, out):
     scaled_df = pd.DataFrame(d, columns=names)
     final_df = pd.concat([df,scaled_df],axis=1)
 
-    final_df.to_csv(os.path.join(out,'data_normaliz2.csv'),index=False)
+    final_df.to_csv(os.path.join(out,'data_normaliz_2class.csv'),index=False)
     print("Save data_normaliz.csv Sucssefuly")
 
 def get_args():

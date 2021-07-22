@@ -65,17 +65,20 @@ def main():
 
     # get image process
     img_list = os.listdir(args.path_img)
-    for img_name in img_list:
-        if (os.path.basename(img_name) == 'image_test.png') or (os.path.basename(img_name) == 'image_test.jpeg') or (os.path.basename(img_name) == 'image_test.jpg') :
-            print('image find name: ',os.path.basename(img_name))
-            img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_name))).convert('L'))
-            break
-    
-    # Process image (get features)
     data = []
+    #for img_name in img_list:
+    #if (os.path.basename(img_name) == 'image_test.png') or (os.path.basename(img_name) == 'image_test.jpeg') or (os.path.basename(img_name) == 'image_test.jpg') :
+    #print('image find name: ',os.path.basename(img_name))
+    img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[0]))).convert('L'))
+    # Process image (get features)
     features = process_image(img)        
     data.append(features)
+    #break
+
+    
     feature = pd.DataFrame(data)
+    #feature = pd.concat([feature], axis=1)
+    #feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
 
     # create annotation and effect new row target
     annotation = pd.DataFrame(columns = ['index','img','target'])
