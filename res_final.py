@@ -68,7 +68,7 @@ def main():
     # get image process
     img_list = os.listdir(args.path_img)
     data = []
-    for img_name in img_list:
+    for img_name in tqdm(img_list):
     #if (os.path.basename(img_name) == 'image_test.png') or (os.path.basename(img_name) == 'image_test.jpeg') or (os.path.basename(img_name) == 'image_test.jpg') :
     #print('image find name: ',os.path.basename(img_name))
         img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_name))).convert('L'))
