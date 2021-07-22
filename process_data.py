@@ -208,7 +208,7 @@ def main():
     #df = pd.read_csv(os.path.join(args.path,'target.csv'))
     df = create_annotation(args.path, 0)
 
-    kernels = gabor_kernels(5,8,39,39)
+    #kernels = gabor_kernels(5,8,39,39)
 
     data = []
 
@@ -216,7 +216,7 @@ def main():
 
         img = np.array(Image.open(os.path.join(images_path,row)).convert('L'))
 
-        features = process_image(img,kernels)
+        features = process_image(img)
 
         data.append(features)
 
