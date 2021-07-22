@@ -143,6 +143,7 @@ def main():
 
     # loaded model SVM to classification image
     loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
+    print(features_image_test)
     result = loaded_model.predict(features_image_test)
     if result == [0]:    
         print("image input is NORMAL")
