@@ -11,6 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from csv import reader,writer
 from tqdm import tqdm
 from process_data import process_image
+from create_annotation import create_annotation
 
 def get_args():
 
@@ -18,10 +19,11 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     # set your environment
-    parser.add_argument('--path_img',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/test/pneumonia') 
+    parser.add_argument('--path_img',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/test/covid') #covid pneumonia
     parser.add_argument('--name_img', type=str, default='image_test')
+    parser.add_argument('--folder_name', type=str, default='COVID19')
     # arguments for training
-    parser.add_argument('--loader_model_svm', type = str , default = 'E:/2 MASTER/Memoire/07-06-2021 (croped)/linear_svc_model.sav')
+    parser.add_argument('--loader_model_svm', type = str , default = 'E:/2 MASTER/Memoire/07-06-2021 (croped)/linear_svc_model_normaliz_version01.sav')
     parser.add_argument('--data_not_normaliz', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/data_concat_non_normaliz.csv')
     parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-12-2021 (file csv)/data csv')
 
@@ -66,13 +68,13 @@ def main():
     # get image process
     img_list = os.listdir(args.path_img)
     data = []
-    #for img_name in img_list:
+    for img_name in img_list:
     #if (os.path.basename(img_name) == 'image_test.png') or (os.path.basename(img_name) == 'image_test.jpeg') or (os.path.basename(img_name) == 'image_test.jpg') :
     #print('image find name: ',os.path.basename(img_name))
-    img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[0]))).convert('L'))
-    # Process image (get features)
-    features = process_image(img)        
-    data.append(features)
+        img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_name))).convert('L'))
+        # Process image (get features)
+        features = process_image(img)        
+        data.append(features)
     #break
 
     
@@ -80,14 +82,16 @@ def main():
     #feature = pd.concat([feature], axis=1)
     #feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
 
+    df = create_annotation('../input/chest-xray-covid19-pneumonia/Data/test', 0, args.folder_name)
+
     # create annotation and effect new row target
-    annotation = pd.DataFrame(columns = ['index','img','target'])
-    new_row = {'index':17227, 'img':'image_test', 'target':0}
+    #annotation = pd.DataFrame(columns = ['index','img','target'])
+    #new_row = {'index':17227, 'img':'image_test', 'target':0}
     #append row to the dataframe
-    annotation = annotation.append(new_row, ignore_index=True)
+    #annotation = annotation.append(new_row, ignore_index=True)
 
     # concatinate annotation end feature to final df
-    final_df = pd.concat([annotation,feature],axis=1)
+    final_df = pd.concat([df,feature],axis=1)
     final_df.to_csv(os.path.join(args.out,'data_add.csv'),index=False)
 
     # add data_add row to data final
@@ -143,7 +147,7 @@ def main():
 
     # loaded model SVM to classification image
     loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
-    print(features_image_test)
+    #print(features_image_test)
     result = loaded_model.predict([features_image_test])
     if result == [0]:    
         print("image input is NORMAL")

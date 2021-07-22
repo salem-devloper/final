@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
 
-    df = pd.read_csv(os.path.join(args.path,'data_normaliz_2class.csv')) #data_concat_non_normaliz
+    df = pd.read_csv(os.path.join(args.path,'data_concat.csv')) #data_concat_non_normaliz
 
     # Declare feature vector and target variable
 
@@ -84,20 +84,20 @@ def main():
     # make predictions on test set
     y_pred=svc_hyperpar.predict(X_test)
 
-    print("test pridect normaliz 2")
-    print(svc_hyperpar.predict([[-2.33E-06,	2.35E-05,	6.17E-07,	1.75E-06,	1.03E-05,	1,	0,	-2.20E-07]]))
-    print(svc_hyperpar.predict([[-2.02E-05,	0.000168,	7.43E-06,	1.57E-05,	7.83E-05,	0.999999982,	0,	-7.29E-06]]))
-    print(svc_hyperpar.predict([[-1.91E-05,	0.000161029,	6.05E-06,	1.70E-05,	8.54E-05,	0.999999983,	0,	-7.39E-06]]))
+    #print("test pridect normaliz 2")
+    #print(svc_hyperpar.predict([[-2.33E-06,	2.35E-05,	6.17E-07,	1.75E-06,	1.03E-05,	1,	0,	-2.20E-07]]))
+    #print(svc_hyperpar.predict([[-2.02E-05,	0.000168,	7.43E-06,	1.57E-05,	7.83E-05,	0.999999982,	0,	-7.29E-06]]))
+    #print(svc_hyperpar.predict([[-1.91E-05,	0.000161029,	6.05E-06,	1.70E-05,	8.54E-05,	0.999999983,	0,	-7.39E-06]]))
 
-    print("test pridect")
+    print("test pridect normaliz svc_hyperpar")
     print(svc_hyperpar.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
     print(svc_hyperpar.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
     print(svc_hyperpar.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
 
-    print("test pridect")
-    print(svc_hyperpar.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
-    print(svc_hyperpar.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
-    print(svc_hyperpar.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
+    #print("test pridect")
+    #print(svc_hyperpar.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
+    #print(svc_hyperpar.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
+    #print(svc_hyperpar.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
 
 
     # compute and print accuracy score
@@ -119,6 +119,10 @@ def main():
     # make predictions on test set
     y_pred=svc_rbf_c100.predict(X_test)
 
+    print("test pridect normaliz svc_rbf_c100")
+    print(svc_rbf_c100.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
+    print(svc_rbf_c100.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
+    print(svc_rbf_c100.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
 
     # compute and print accuracy score
     print('Model accuracy score with rbf kernel and C=100.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
@@ -135,10 +139,12 @@ def main():
 
     # make predictions on test set
     y_pred=svc_rbf_c1000.predict(X_test)
-    print("test pridect")
-    print(svc_rbf_c1000.predict([[-1.317997098,	13.34376144,	0.349806249,	0.991162002,	5.823415756,	566667.5,	0,	-0.12453936]]))
-    print(svc_rbf_c1000.predict([[-1.138931751,	9.900605202,	0.517118871,	0.968591928,	4.700357437,	64236,	0,	-0.32606703]]))
-    print(svc_rbf_c1000.predict([[-1.156782269,	9.676625252,	0.403339744,	0.959918499,	4.784446239,	58879,	0,	-0.407173276]]))
+    
+    print("test pridect normaliz svc_rbf_c1000")
+    print(svc_rbf_c1000.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
+    print(svc_rbf_c1000.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
+    print(svc_rbf_c1000.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
+    
     # compute and print accuracy score
     print('Model accuracy score with rbf kernel and C=1000.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
 
@@ -156,6 +162,13 @@ def main():
     # make predictions on test set
     y_pred_test=linear_svc.predict(X_test)
 
+    print("test pridect normaliz linear_svc")
+    print(linear_svc.predict([[0.5219771937229528, 0.37179858049219616, 0.4502084703084542, 0.9180453455852107, 0.21358339001686932, 0.0075136764207132415, 0.0, 0.522671169804032]]))
+    print(linear_svc.predict([[0.521977193677495, 0.371798580483986, 0.450208469694346, 0.918045345824172, 0.213583390236258, 0.00751367642071324, 0.0, 0.522671169302097]]))
+    print(linear_svc.predict([[0.404695112, 0.556220642, 0.435032654, 0.95375712, 0.616367614, 0.140135251, 0, 0.801199482]]))
+    print(linear_svc.predict([[0.572075354,	0.425227225,	0.196546918,	0.873134995,	0.922964603,	0.138429271,	0.159571425,	0.449790328]]))
+    print(linear_svc.predict([[0.658484677,	0.443266785,	0.494248695,	0.944447685,	0.579502115,	0.503946736,	0.162076535,	0.779742237]]))
+
     # compute and print accuracy score
     print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 
@@ -172,12 +185,12 @@ def main():
 
     from sklearn.model_selection import cross_val_score, cross_val_predict
 
-    Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
+    #Cross_validated = cross_val_score(linear_svc, X_train, y_train, cv=10).mean()
     #C_V = cross_val_predict(linear_svc, X_train, y_train, cv=10)
 
     #print(C_V)    
 
-    print('Cross validated : {:.4f}'.format(Cross_validated))
+    #print('Cross validated : {:.4f}'.format(Cross_validated))
 
     #clf = svm.SVC(kernel='linear', C=1, random_state=42)
     #scores = cross_val_score(clf, X, y, cv=5)
@@ -199,8 +212,8 @@ def main():
 
     import pickle
     # save the model to disk
-    filename = os.path.join(args.out, 'linear_svc_model_normaliz_2class.sav')
-    pickle.dump(svc_rbf_c1000, open(filename, 'wb'))
+    filename = os.path.join(args.out, 'linear_svc_model_normaliz_version01.sav')
+    pickle.dump(linear_svc, open(filename, 'wb'))
     print('save model')
     # load the model from disk
     loaded_model = pickle.load(open(filename, 'rb'))
