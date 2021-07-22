@@ -202,7 +202,7 @@ def main():
     if not os.path.exists(args.out):
         os.mkdir(args.out)
 
-    images_path = os.path.join(args.path,'test')
+    images_path = os.path.join(args.path)
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
     #df = pd.read_csv(os.path.join(args.path,'target.csv'))
