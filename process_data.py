@@ -13,6 +13,7 @@ import argparse
 from tqdm import tqdm
 
 from scipy.stats import rankdata
+from create_annotation import create_annotation
 
 import matplotlib.pyplot as plt
 import cv2
@@ -191,7 +192,7 @@ def get_args():
     # arguments for training
     #parser.add_argument('--nrows', type = int , default = 3616)
 
-    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-06-2021 (croped)/covid_croped/dataset/zipf csv')
+    parser.add_argument('--out', type=str, default='E:/2 MASTER/Memoire/07-12-2021 (file csv)/data')
     return parser.parse_args()
 
 def main():
@@ -204,7 +205,8 @@ def main():
     images_path = os.path.join(args.path,'test')
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
-    df = pd.read_csv(os.path.join(args.path,'target.csv'))
+    #df = pd.read_csv(os.path.join(args.path,'target.csv'))
+    df = create_annotation(args.path, 0)
 
     kernels = gabor_kernels(5,8,39,39)
 

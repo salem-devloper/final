@@ -4,10 +4,10 @@ import pandas as pd
 import argparse
 
 
-def create_annotation(path, a, folder_image_name):
+def create_annotation(path, a):
 
    
-    images_path = os.path.join(path,folder_image_name)
+    images_path = os.path.join(path)
     #masks_path = os.path.join(path,'Ground-truths')
     
     images = os.listdir(images_path)
