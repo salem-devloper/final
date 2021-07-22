@@ -131,8 +131,8 @@ def main():
                 break
             i += 1
 
-    x = np.array([features_image_test])
-    features_image_test = x.astype(np.float)
+    #x = np.array([features_image_test])
+    #features_image_test = x.astype(np.float)
     #print(x)
     #features_image_test = np.around(x,9)
     #features_image_test = np.set_printoptions(formatter={'float': lambda x: "{0:0.9f}".format([x])})
@@ -144,7 +144,7 @@ def main():
     # loaded model SVM to classification image
     loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
     print(features_image_test)
-    result = loaded_model.predict(features_image_test)
+    result = loaded_model.predict([features_image_test])
     if result == [0]:    
         print("image input is NORMAL")
     if result == [1]:    
