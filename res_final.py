@@ -77,12 +77,13 @@ def main():
         data.append(features)
     #break
 
+    df = create_annotation(args.path_img, 0)
     
     feature = pd.DataFrame(data)
-    #feature = pd.concat([feature], axis=1)
-    #feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
+    feature = pd.concat([df,feature], axis=1)
+    feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
 
-    df = create_annotation('../input/chest-xray-covid19-pneumonia/Data/test', 0, args.folder_name)
+    
 
     # create annotation and effect new row target
     #annotation = pd.DataFrame(columns = ['index','img','target'])
@@ -91,11 +92,11 @@ def main():
     #annotation = annotation.append(new_row, ignore_index=True)
 
     # concatinate annotation end feature to final df
-    final_df = pd.concat([df,feature],axis=1)
-    final_df.to_csv(os.path.join(args.out,'data_add.csv'),index=False)
+    #final_df = pd.concat([df,feature],axis=1)
+    #final_df.to_csv(os.path.join(args.out,'data_add.csv'),index=False)
 
     # add data_add row to data final
-    with open(os.path.join(args.out,'data_add.csv'), 'r') as read_obj:
+    with open(os.path.join(args.out,'data_process.csv'), 'r') as read_obj:
         # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj)
         header = next(csv_reader)
@@ -110,6 +111,7 @@ def main():
 
     # normalization data final and effect to data_normalization
     df = pd.read_csv(os.path.join(args.out,'data.csv'))
+    df1 = df.drop(['0','1','2','3','4','5','6','7'], axis=1)
     x_array = df.drop(['index','img','target'], axis=1)
     #info = df['img']
     names = x_array.columns
@@ -117,7 +119,7 @@ def main():
     scaler.fit(x_array)
     d = scaler.transform(x_array)
     scaled_df = pd.DataFrame(d, columns=names)
-    final_df = pd.concat([scaled_df],axis=1)
+    final_df = pd.concat([df1,scaled_df],axis=1)
     final_df.to_csv(os.path.join(args.out,'data_normalization.csv'),index=False)
     print("Normalization Done")
 
@@ -135,6 +137,8 @@ def main():
                 break
             i += 1
 
+    df = pd.read_csv(os.path.join(args.out,'data_normalization.csv'))
+    te = df.drop(['index','img','target'], axis=1)
     #x = np.array([features_image_test])
     #features_image_test = x.astype(np.float)
     #print(x)
@@ -148,13 +152,17 @@ def main():
     # loaded model SVM to classification image
     loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
     #print(features_image_test)
-    result = loaded_model.predict([features_image_test])
-    if result == [0]:    
-        print("image input is NORMAL")
-    if result == [1]:    
-        print("image input is COVID")
-    if result == [2]:    
-        print("image input is PNEUMONIA")
+    result = loaded_model.predict(te)
+    print(result)
+    scaled_df = pd.DataFrame([result])
+    final_df = pd.concat([scaled_df],axis=0)
+    final_df.to_csv(os.path.join(args.out,'data_result.csv'),index=False)
+    #if result == [0]:    
+        #print("image input is NORMAL")
+    #if result == [1]:    
+        #print("image input is COVID")
+    #if result == [2]:    
+        #print("image input is PNEUMONIA")
 
 if __name__ == '__main__':
 
