@@ -68,35 +68,35 @@ def main():
     # get image process
     img_list = os.listdir(args.path_img)
     data = []
-    for img_name in tqdm(img_list):
+    #for img_name in tqdm(img_list):
     #if (os.path.basename(img_name) == 'image_test.png') or (os.path.basename(img_name) == 'image_test.jpeg') or (os.path.basename(img_name) == 'image_test.jpg') :
     #print('image find name: ',os.path.basename(img_name))
-        img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_name))).convert('L'))
+    img = np.array(Image.open(os.path.join(args.path_img,os.path.basename(img_list[0]))).convert('L'))
         # Process image (get features)
-        features = process_image(img)        
-        data.append(features)
+    features = process_image(img)        
+    data.append(features)
     #break
 
-    df = create_annotation(args.path_img, 0)
+    #df = create_annotation(args.path_img, 0)
     
     feature = pd.DataFrame(data)
-    feature = pd.concat([df,feature], axis=1)
-    feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
+    #feature = pd.concat([df,feature], axis=1)
+    #feature.to_csv(os.path.join(args.out,'data_process.csv'),index=False)
 
     
 
     # create annotation and effect new row target
-    #annotation = pd.DataFrame(columns = ['index','img','target'])
-    #new_row = {'index':17227, 'img':'image_test', 'target':0}
+    annotation = pd.DataFrame(columns = ['index','img','target'])
+    new_row = {'index':17227, 'img':'image_test', 'target':0}
     #append row to the dataframe
-    #annotation = annotation.append(new_row, ignore_index=True)
+    annotation = annotation.append(new_row, ignore_index=True)
 
     # concatinate annotation end feature to final df
-    #final_df = pd.concat([df,feature],axis=1)
-    #final_df.to_csv(os.path.join(args.out,'data_add.csv'),index=False)
+    final_df = pd.concat([annotation,feature],axis=1)
+    final_df.to_csv(os.path.join(args.out,'data_add.csv'),index=False)
 
     # add data_add row to data final
-    with open(os.path.join(args.out,'data_process.csv'), 'r') as read_obj:
+    with open(os.path.join(args.out,'data_add.csv'), 'r') as read_obj:
         # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj)
         header = next(csv_reader)
@@ -152,17 +152,17 @@ def main():
     # loaded model SVM to classification image
     loaded_model = pickle.load(open(args.loader_model_svm, 'rb'))
     #print(features_image_test)
-    result = loaded_model.predict(te)
+    result = loaded_model.predict([features_image_test])
     print(result)
-    scaled_df = pd.DataFrame([result])
-    final_df = pd.concat([scaled_df],axis=0)
-    final_df.to_csv(os.path.join(args.out,'data_result.csv'),index=False)
-    #if result == [0]:    
-        #print("image input is NORMAL")
-    #if result == [1]:    
-        #print("image input is COVID")
-    #if result == [2]:    
-        #print("image input is PNEUMONIA")
+    #scaled_df = pd.DataFrame([result])
+    #final_df = pd.concat([scaled_df],axis=0)
+    #final_df.to_csv(os.path.join(args.out,'data_result.csv'),index=False)
+    if result == [0]:    
+        print("image input is NORMAL")
+    if result == [1]:    
+        print("image input is COVID")
+    if result == [2]:    
+        print("image input is PNEUMONIA")
 
 if __name__ == '__main__':
 

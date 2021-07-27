@@ -161,6 +161,16 @@ def main():
 
     # make predictions on test set
     y_pred_test=linear_svc.predict(X_test)
+    
+    tes=linear_svc.predict(X)
+    data = []
+    for i in tes:
+        data.append([i])
+    df_image_vide = pd.DataFrame(data, columns = ['target'])
+    file_csv = pd.concat([df_image_vide])
+    file_csv.to_csv(os.path.join(args.out,'data_target.csv'),index=False)
+    print("save file csv")
+    print(y_pred_test)
 
     print("test pridect normaliz linear_svc")
     print(linear_svc.predict([[0.5219771937229528, 0.37179858049219616, 0.4502084703084542, 0.9180453455852107, 0.21358339001686932, 0.0075136764207132415, 0.0, 0.522671169804032]]))
@@ -212,7 +222,7 @@ def main():
 
     import pickle
     # save the model to disk
-    filename = os.path.join(args.out, 'linear_svc_model_normaliz_version01.sav')
+    filename = os.path.join(args.out, 'linear_svc_model_normaliz_version02.sav')
     pickle.dump(linear_svc, open(filename, 'wb'))
     print('save model')
     # load the model from disk
