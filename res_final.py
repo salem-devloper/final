@@ -137,8 +137,8 @@ def main():
                 break
             i += 1
 
-    df = pd.read_csv(os.path.join(args.out,'data_normalization.csv'))
-    te = df.drop(['index','img','target'], axis=1)
+    #df = pd.read_csv(os.path.join(args.out,'data_normalization.csv'))
+    #te = df.drop(['index','img','target'], axis=1)
     #x = np.array([features_image_test])
     #features_image_test = x.astype(np.float)
     #print(x)
