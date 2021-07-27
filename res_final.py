@@ -119,7 +119,7 @@ def main():
     scaler.fit(x_array)
     d = scaler.transform(x_array)
     scaled_df = pd.DataFrame(d, columns=names)
-    final_df = pd.concat([df1,scaled_df],axis=1)
+    final_df = pd.concat([scaled_df],axis=1)
     final_df.to_csv(os.path.join(args.out,'data_normalization.csv'),index=False)
     print("Normalization Done")
 
