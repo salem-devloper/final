@@ -189,6 +189,7 @@ def get_args():
 
     # set your environment
     parser.add_argument('--path',type=str,default='E:/2 MASTER/Memoire/07-06-2021 (croped)/covid_croped/dataset')
+    parser.add_argument('--target',type=int,default=0)
     # arguments for training
     #parser.add_argument('--nrows', type = int , default = 3616)
 
@@ -206,7 +207,7 @@ def main():
 
     #df = pd.read_csv(os.path.join(args.path,'target.csv'),nrows=5)
     #df = pd.read_csv(os.path.join(args.path,'target.csv'))
-    df = create_annotation(args.path, 0)
+    df = create_annotation(args.path, args.target)
 
     #kernels = gabor_kernels(5,8,39,39)
 
