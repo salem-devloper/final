@@ -191,14 +191,14 @@ def draw_plots(history):
     plt.show()
 
     # summarize history for loss
-    plt.plot(history['train']['loss'])
-    plt.plot(history['val']['loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('./loss_plot.png')
-    plt.show()
+    #plt.plot(history['train']['loss'])
+    #plt.plot(history['val']['loss'])
+    #plt.title('model loss')
+    #plt.ylabel('loss')
+    #plt.xlabel('epoch')
+    #plt.legend(['train', 'test'], loc='upper left')
+    #plt.savefig('./loss_plot.png')
+    #plt.show()
 
 def get_args():
 
@@ -211,7 +211,7 @@ def get_args():
 
     # arguments for training
     parser.add_argument('--img_size', type = int , default = 512,)
-    parser.add_argument('--epochs', type=int , default = 100 )
+    parser.add_argument('--epochs', type=int , default = 50 )
     parser.add_argument('--batch_size', type=int, default=8)
     parser.add_argument('--lr', type=float, default=0.01)
 
