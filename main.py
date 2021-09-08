@@ -181,24 +181,24 @@ def draw_plots(history):
     #           'val': {'epoch': [], 'loss': [], 'acc': []}}
     #print(history.history.keys())
     # summarize history for accuracy
-    plt.plot(history['train']['acc'])
-    plt.plot(history['val']['acc'])
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('./accuracy_plot.png')
-    plt.show()
-
-    # summarize history for loss
-    #plt.plot(history['train']['loss'])
-    #plt.plot(history['val']['loss'])
-    #plt.title('model loss')
-    #plt.ylabel('loss')
+    #plt.plot(history['train']['acc'])
+    #plt.plot(history['val']['acc'])
+    #plt.title('model accuracy')
+    #plt.ylabel('accuracy')
     #plt.xlabel('epoch')
     #plt.legend(['train', 'test'], loc='upper left')
-    #plt.savefig('./loss_plot.png')
+    #plt.savefig('./accuracy_plot.png')
     #plt.show()
+
+    # summarize history for loss
+    plt.plot(history['train']['loss'])
+    plt.plot(history['val']['loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.savefig('./loss_plot.png')
+    plt.show()
 
 def get_args():
 
